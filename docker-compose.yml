@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    # container_name: slim_app  # เพิ่ม container_name ถ้าต้องการ
+    volumes:
+      - ./backend:/var/www
+    networks:
+      - partymodelnet
+
+  nginx:
+    image: nginx:alpine
+    # container_name: slim_nginx  # เพิ่ม container_name ถ้าต้องการ
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend:/var/www  # เพิ่มกลับมาเพื่อให้ Nginx เห็นไฟล์
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - backend
+    networks:
+      - partymodelnet
+
+  db:
+      image: postgres:16
+      volumes:
+        - ./db-data:/var/lib/postgresql/data
+        - ./staticData:/staticData  # เพิ่ม Mount โฟลเดอร์ data
+      environment:
+        POSTGRES_DB: myapp
+        POSTGRES_USER: spa
+        POSTGRES_PASSWORD: spa
+      networks:
+        - partymodelnet
+      ports:
+        - "5432:5432"
+
+networks:
+  partymodelnet:
+    driver: bridge
