@@ -6,8 +6,7 @@ CREATE TABLE party_type (
 
 -- Super-type table representing a generic party (could be a person or organization)
 CREATE TABLE party (
-    id SERIAL PRIMARY KEY,              -- Unique identifier for each party
-    partytype_id INT REFERENCES party_type(id) -- Foreign key linking to the party type
+    id SERIAL PRIMARY KEY              -- Unique identifier for each party
 );
 
 -- Junction table to classify a party into one or more types over time
@@ -21,7 +20,7 @@ CREATE TABLE party_classification (
 
 -- Super-type table for organization-specific classifications
 CREATE TABLE organization_classification (
-    id SERIAL PRIMARY KEY               -- Unique identifier for organization classifications
+    id SERIAL PRIMARY KEY REFERENCES party_classification(id)               -- Unique identifier for organization classifications
 );
 
 -- Lookup table for minority types (e.g., "Women-Owned", "Veteran-Owned")
@@ -74,7 +73,7 @@ CREATE TABLE person (
 
 -- Super-type table for person-specific classifications
 CREATE TABLE person_classification (
-    id SERIAL PRIMARY KEY REFERENCES organization_classification(id) -- Links to organization_classification (seems incorrect; see note)
+    id SERIAL PRIMARY KEY REFERENCES party_classification(id) -- Links to organization_classification (seems incorrect; see note)
 );
 
 -- Lookup table for ethnicity (e.g., "Asian", "Caucasian")

@@ -2,6 +2,15 @@
 
 project นี้คือ project fullstack base on reference datamodel จาก หนังสือ data model resource book vol1
 
+![person alternative](./mockup/Screenshot%202025-03-14%20161924.png)
+person alternative
+
+![party alternative](./mockup/party_erd.png)
+party alternative
+
+![party alt + person alt model](./mockup/party_model.png)
+party alt + person alt model (จะทำตัวนี้)
+
 # ปัญหาที่เจอจาก framework ตัวเก่า
 
 เดิมถ้าเป็น laravel ตอน run บน window11 . . . backend จะช้ามาก response time 4-5 วินาที 
