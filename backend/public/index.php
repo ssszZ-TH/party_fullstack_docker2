@@ -3,7 +3,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use App\Controllers\UserController;
-use App\Controllers\ProductController;
+use App\Controllers\MaritalstatustypeController;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -35,6 +35,13 @@ $app->get('/users/{id}', [UserController::class, 'get']);
 $app->post('/users', [UserController::class, 'create']);
 $app->put('/users/{id}', [UserController::class, 'update']);
 $app->delete('/users/{id}', [UserController::class, 'delete']);
+
+// Routes สำหรับ User
+$app->get('/v1/maritalstatustype', [MaritalstatustypeController::class, 'list']);
+$app->get('/v1/maritalstatustype/{id}', [MaritalstatustypeController::class, 'get']);
+$app->post('/v1/maritalstatustype', [MaritalstatustypeController::class, 'create']);
+$app->put('/v1/maritalstatustype/{id}', [MaritalstatustypeController::class, 'update']);
+$app->delete('/v1/maritalstatustype/{id}', [MaritalstatustypeController::class, 'delete']);
 
 // // Routes สำหรับ Product
 // $app->get('/products', [ProductController::class, 'list']);

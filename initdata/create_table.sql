@@ -6,7 +6,8 @@ CREATE TABLE party_type (
 
 -- Super-type table representing a generic party (could be a person or organization)
 CREATE TABLE party (
-    id SERIAL PRIMARY KEY               -- Unique identifier for each party
+    id SERIAL PRIMARY KEY,              -- Unique identifier for each party
+    partytype_id INT REFERENCES party_type(id) -- Foreign key linking to the party type
 );
 
 -- Junction table to classify a party into one or more types over time

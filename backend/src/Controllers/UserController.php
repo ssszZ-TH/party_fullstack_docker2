@@ -25,10 +25,10 @@ class UserController
     {
         $data = $request->getParsedBody();
 
-        if (!$data || !isset($data['name']) || empty(trim($data['name']))) {
-            $response->getBody()->write(json_encode(['error' => 'Name is required']));
-            return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
-        }
+        // if (!$data || !isset($data['name']) || empty(trim($data['name']))) {
+        //     $response->getBody()->write(json_encode(['error' => 'Name is required']));
+        //     return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+        // }
 
         $userId = User::create($data);
         $response->getBody()->write(json_encode(['id' => $userId]));
