@@ -143,7 +143,8 @@ CREATE TABLE personname (
     fromdate DATE,                      -- Start date of the name
     thrudate DATE,                      -- End date of the name (NULL if still active)
     person_id INT REFERENCES person(id), -- Foreign key linking to person
-    personnametype_id INT REFERENCES personnametype(id) -- Foreign key to name type
+    personnametype_id INT REFERENCES personnametype(id), -- Foreign key to name type
+    name VARCHAR(128)                   -- The name
 );
 
 -- Lookup table for countries
