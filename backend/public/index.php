@@ -5,6 +5,7 @@ use Slim\Factory\AppFactory;
 use App\Controllers\UserController;
 use App\Controllers\MaritalstatustypeController;
 use App\Controllers\PersonnametypeController;
+use App\Controllers\PhysicalcharacteristictypeController;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -50,6 +51,13 @@ $app->get('/v1/personnametype/{id}', [PersonnametypeController::class, 'get']);
 $app->post('/v1/personnametype', [PersonnametypeController::class, 'create']);
 $app->put('/v1/personnametype/{id}', [PersonnametypeController::class, 'update']);
 $app->delete('/v1/personnametype/{id}', [PersonnametypeController::class, 'delete']);
+
+// Routes สำหรับ User
+$app->get('/v1/physicalcharacteristictype', [PhysicalcharacteristictypeController::class, 'list']);
+$app->get('/v1/physicalcharacteristictype/{id}', [PhysicalcharacteristictypeController::class, 'get']);
+$app->post('/v1/physicalcharacteristictype', [PhysicalcharacteristictypeController::class, 'create']);
+$app->put('/v1/physicalcharacteristictype/{id}', [PhysicalcharacteristictypeController::class, 'update']);
+$app->delete('/v1/physicalcharacteristictype/{id}', [PhysicalcharacteristictypeController::class, 'delete']);
 
 // // Routes สำหรับ Product
 // $app->get('/products', [ProductController::class, 'list']);
