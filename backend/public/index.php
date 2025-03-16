@@ -6,6 +6,8 @@ use App\Controllers\UserController;
 use App\Controllers\MaritalstatustypeController;
 use App\Controllers\PersonnametypeController;
 use App\Controllers\PhysicalcharacteristictypeController;
+use App\Controllers\CountryController;
+use App\Controllers\MaritalstatusController;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -58,6 +60,18 @@ $app->get('/v1/physicalcharacteristictype/{id}', [PhysicalcharacteristictypeCont
 $app->post('/v1/physicalcharacteristictype', [PhysicalcharacteristictypeController::class, 'create']);
 $app->put('/v1/physicalcharacteristictype/{id}', [PhysicalcharacteristictypeController::class, 'update']);
 $app->delete('/v1/physicalcharacteristictype/{id}', [PhysicalcharacteristictypeController::class, 'delete']);
+
+$app->get('/v1/country', [CountryController::class, 'list']);
+$app->get('/v1/country/{id}', [CountryController::class, 'get']);
+$app->post('/v1/country', [CountryController::class, 'create']);
+$app->put('/v1/country/{id}', [CountryController::class, 'update']);
+$app->delete('/v1/country/{id}', [CountryController::class, 'delete']);
+
+$app->get('/v1/maritalstatus', [MaritalstatusController::class, 'list']);
+$app->get('/v1/maritalstatus/{id}', [MaritalstatusController::class, 'get']);
+$app->post('/v1/maritalstatus', [MaritalstatusController::class, 'create']);
+$app->put('/v1/maritalstatus/{id}', [MaritalstatusController::class, 'update']);
+$app->delete('/v1/maritalstatus/{id}', [MaritalstatusController::class, 'delete']);
 
 // // Routes สำหรับ Product
 // $app->get('/products', [ProductController::class, 'list']);
