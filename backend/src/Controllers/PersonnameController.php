@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\Maritalstatus;
+use App\Models\Personname;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -9,14 +9,14 @@ class PersonnameController
 {
     public function list(Request $request, Response $response): Response
     {
-        $users = Maritalstatus::all();
+        $users = Personname::all();
         $response->getBody()->write(json_encode($users));
         return $response->withHeader('Content-Type', 'application/json');
     }
 
     public function get(Request $request, Response $response, array $args): Response
     {
-        $user = Maritalstatus::find($args['id']);
+        $user = Personname::find($args['id']);
         $response->getBody()->write(json_encode($user));
         return $response->withHeader('Content-Type', 'application/json');
     }
@@ -30,7 +30,7 @@ class PersonnameController
         //     return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
         // }
 
-        $userId = Maritalstatus::create($data);
+        $userId = Personname::create($data);
         $response->getBody()->write(json_encode(['id' => $userId]));
         return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
     }
@@ -38,13 +38,13 @@ class PersonnameController
     public function update(Request $request, Response $response, array $args): Response
     {
         $data = $request->getParsedBody();
-        Maritalstatus::update($args['id'], $data);
+        Personname::update($args['id'], $data);
         return $response->withStatus(204);
     }
 
     public function delete(Request $request, Response $response, array $args): Response
     {
-        Maritalstatus::delete($args['id']);
+        Personname::delete($args['id']);
         return $response->withStatus(204);
     }
 }

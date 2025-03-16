@@ -49,8 +49,7 @@ class Citizenship
     public static function create($data)
     {
         $pdo = self::getConnection();
-        $stmt = $pdo->prepare(`
-        INSERT INTO public.citizenship(fromdate, thrudate, person_id, country_id) 
+        $stmt = $pdo->prepare(`INSERT INTO public.citizenship(fromdate, thrudate, person_id, country_id) 
         VALUES (:fromdate, :thrudate, :person_id, :country_id) RETURNING id`
     );
         $stmt->execute([
@@ -66,8 +65,7 @@ class Citizenship
     public static function update($id, $data)
     {
         $pdo = self::getConnection();
-        $stmt = $pdo->prepare(
-            `UPDATE public.citizenship 
+        $stmt = $pdo->prepare(`UPDATE public.citizenship 
             SET fromdate = :fromdate,
             thrudate = :thrudate,
             person_id = :person_id, 

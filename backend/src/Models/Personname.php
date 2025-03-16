@@ -49,7 +49,15 @@ class Personname
     public static function create($data)
     {
         $pdo = self::getConnection();
-        $stmt = $pdo->prepare("INSERT INTO public.personname(fromdate, thrudate, person_id, personnametype_id, name) VALUES (:fromdate, :thrudate, :person_id, :maritalstatustype_id, :name) RETURNING id");
+
+        // เขียน SQL ให้ชัดเจน ไม่มี whitespace เกิน
+        $sql = "
+        INSERT INTO public.personname (fromdate, thrudate, person_id, personnametype_id, name) 
+        VALUES (:fromdate, :thrudate, :person_id, :personnametype_id, :name) 
+        RETURNING id
+    ";
+        $stmt = $pdo->prepare($sql);
+
         $stmt->execute([
             'fromdate' => $data['fromdate'],
             'thrudate' => $data['thrudate'],
@@ -57,14 +65,22 @@ class Personname
             'personnametype_id' => $data['personnametype_id'],
             'name' => $data['name']
         ]);
-        return $stmt->fetchColumn(); // คืนค่า ID ที่เพิ่งสร้าง
+
+        return $stmt->fetchColumn(); // คืนค่า ID
     }
 
     // อัปเดตข้อมูล
     public static function update($id, $data)
     {
         $pdo = self::getConnection();
-        $stmt = $pdo->prepare("UPDATE public.personname SET fromdate = :fromdate, thrudate = :thrudate, person_id = :person_id, personnametype_id = :personnametype_id, name = :name WHERE id = :id");
+        $sql = "UPDATE public.personname 
+        SET fromdate = :fromdate, 
+        thrudate = :thrudate, 
+        person_id = :person_id, 
+        personnametype_id = :personnametype_id, 
+        name = :name 
+        WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
         $stmt->execute([
             'id' => $id,
             'fromdate' => $data['fromdate'],
