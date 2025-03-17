@@ -49,9 +49,9 @@ class Citizenship
     public static function create($data)
     {
         $pdo = self::getConnection();
-        $stmt = $pdo->prepare(`INSERT INTO public.citizenship(fromdate, thrudate, person_id, country_id) 
-        VALUES (:fromdate, :thrudate, :person_id, :country_id) RETURNING id`
-    );
+        $sql = "INSERT INTO public.citizenship(fromdate, thrudate, person_id, country_id) 
+        VALUES (:fromdate, :thrudate, :person_id, :country_id) RETURNING id";
+        $stmt = $pdo->prepare($sql);
         $stmt->execute([
             'fromdate' => $data['fromdate'],
             'thrudate' => $data['thrudate'],
@@ -65,13 +65,13 @@ class Citizenship
     public static function update($id, $data)
     {
         $pdo = self::getConnection();
-        $stmt = $pdo->prepare(`UPDATE public.citizenship 
+        $sql = "UPDATE public.citizenship 
             SET fromdate = :fromdate,
             thrudate = :thrudate,
             person_id = :person_id, 
             country_id = :country_id 
-            WHERE id = :id`
-        );
+            WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
         $stmt->execute([
             'id' => $id,
             'fromdate' => $data['fromdate'],

@@ -9,6 +9,7 @@ use App\Controllers\PhysicalcharacteristictypeController;
 use App\Controllers\CountryController;
 use App\Controllers\MaritalstatusController;
 use App\Controllers\PersonnameController;
+use App\Controllers\CitizenshipController;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -79,6 +80,12 @@ $app->get('/v1/personname/{id}', [PersonnameController::class, 'get']);
 $app->post('/v1/personname', [PersonnameController::class, 'create']);
 $app->put('/v1/personname/{id}', [PersonnameController::class, 'update']);
 $app->delete('/v1/personname/{id}', [PersonnameController::class, 'delete']);
+
+$app->get('/v1/citizenship', [CitizenshipController::class, 'list']);
+$app->get('/v1/citizenship/{id}', [CitizenshipController::class, 'get']);
+$app->post('/v1/citizenship', [CitizenshipController::class, 'create']);
+$app->put('/v1/citizenship/{id}', [CitizenshipController::class, 'update']);
+$app->delete('/v1/citizenship/{id}', [CitizenshipController::class, 'delete']);
 
 // // Routes สำหรับ Product
 // $app->get('/products', [ProductController::class, 'list']);
