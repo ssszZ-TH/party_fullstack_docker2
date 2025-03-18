@@ -11,6 +11,7 @@ use App\Controllers\MaritalstatusController;
 use App\Controllers\PersonnameController;
 use App\Controllers\CitizenshipController;
 use App\Controllers\PassportController;
+use App\Controllers\PersonController;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -93,6 +94,12 @@ $app->get('/v1/passport/{id}', [PassportController::class, 'get']);
 $app->post('/v1/passport', [PassportController::class, 'create']);
 $app->put('/v1/passport/{id}', [PassportController::class, 'update']);
 $app->delete('/v1/passport/{id}', [PassportController::class, 'delete']);
+
+$app->get('/v1/person', [PersonController::class, 'list']);
+$app->get('/v1/person/{id}', [PersonController::class, 'get']);
+$app->post('/v1/person', [PersonController::class, 'create']);
+$app->put('/v1/person/{id}', [PersonController::class, 'update']);
+$app->delete('/v1/person/{id}', [PersonController::class, 'delete']);
 
 // // Routes สำหรับ Product
 // $app->get('/products', [ProductController::class, 'list']);

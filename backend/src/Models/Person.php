@@ -49,41 +49,58 @@ class Person
     public static function create($data)
     {
         $pdo = self::getConnection();
-        $sql = "DO $$
-DECLARE
-    new_id INTEGER;
-BEGIN
-    -- Insert into party and get the id
-    INSERT INTO public.party (id) 
-    VALUES (DEFAULT) 
-    RETURNING id INTO new_id;
 
-    -- Insert into person with the same id
-    INSERT INTO public.person (
-        id, 
-        socialsecuritynumber, 
-        birthdate, 
-        mothermaidenname, 
-        totalyearworkexperience, 
-        comment
-    ) VALUES (
-        new_id,
-        :socialsecuritynumber,
-        :birthdate,
-        :mothermaidenname,
-        :totalyearworkexperience,
-        :comment
-    );
-END $$;";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            'socialsecuritynumber' => $data['socialsecuritynumber'],
-            'birthdate' => $data['birthdate'],
-            'mothermaidenname' => $data['mothermaidenname'],
-            'totalyearworkexperience' => $data['totalyearworkexperience'],
-            'comment' => $data['comment']
-        ]);
-        return $stmt->fetchColumn(); // คืนค่า ID ที่เพิ่งสร้าง
+        try {
+            // เริ่ม transaction เพื่อให้แน่ใจว่า insert ทั้งสองสำเร็จพร้อมกัน
+            $pdo->beginTransaction();
+
+            // 1. Insert into party และดึง id
+            $sql1 = "
+                INSERT INTO public.party (id) 
+                VALUES (DEFAULT) 
+                RETURNING id
+            ";
+            $stmt1 = $pdo->prepare($sql1);
+            $stmt1->execute();
+            $new_id = $stmt1->fetchColumn(); // ดึง id ที่สร้าง
+
+            // 2. Insert into person ด้วย id ที่ได้
+            $sql2 = "
+                INSERT INTO public.person (
+                    id, 
+                    socialsecuritynumber, 
+                    birthdate, 
+                    mothermaidenname, 
+                    totalyearworkexperience, 
+                    comment
+                ) VALUES (
+                    :id,
+                    :socialsecuritynumber,
+                    :birthdate,
+                    :mothermaidenname,
+                    :totalyearworkexperience,
+                    :comment
+                )
+            ";
+            $stmt2 = $pdo->prepare($sql2);
+            $stmt2->execute([
+                'id' => $new_id,
+                'socialsecuritynumber' => $data['socialsecuritynumber'],
+                'birthdate' => $data['birthdate'],
+                'mothermaidenname' => $data['mothermaidenname'],
+                'totalyearworkexperience' => $data['totalyearworkexperience'],
+                'comment' => $data['comment']
+            ]);
+
+            // Commit transaction
+            $pdo->commit();
+
+            return $new_id; // คืนค่า id ที่สร้าง
+        } catch (PDOException $e) {
+            // Rollback ถ้ามี error
+            $pdo->rollBack();
+            throw $e; // โยน error ต่อไปให้ controller จัดการ
+        }
     }
 
     // อัปเดตข้อมูล
@@ -91,13 +108,13 @@ END $$;";
     {
         $pdo = self::getConnection();
         $sql = "UPDATE public.person 
-SET 
-    socialsecuritynumber = :socialsecuritynumber,
-    birthdate = :birthdate,
-    mothermaidenname = :mothermaidenname,
-    totalyearworkexperience = :totalyearworkexperience,
-    comment = :comment
-WHERE id = :id;";
+        SET 
+        socialsecuritynumber = :socialsecuritynumber,
+        birthdate = :birthdate,
+        mothermaidenname = :mothermaidenname,
+        totalyearworkexperience = :totalyearworkexperience,
+        comment = :comment
+        WHERE id = :id;";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             'id' => $id,
