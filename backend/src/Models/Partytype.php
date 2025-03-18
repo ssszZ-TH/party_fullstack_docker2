@@ -32,7 +32,7 @@ class Partytype
     public static function all()
     {
         $pdo = self::getConnection();
-        $stmt = $pdo->query("SELECT * FROM public.partytype order by id asc;");
+        $stmt = $pdo->query("SELECT * FROM public.party_type order by id asc;");
         return $stmt->fetchAll();
     }
 
@@ -40,7 +40,7 @@ class Partytype
     public static function find($id)
     {
         $pdo = self::getConnection();
-        $stmt = $pdo->prepare("SELECT * FROM public.partytype WHERE id = :id");
+        $stmt = $pdo->prepare("SELECT * FROM public.party_type WHERE id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch();
     }
@@ -49,7 +49,7 @@ class Partytype
     public static function create($data)
     {
         $pdo = self::getConnection();
-        $stmt = $pdo->prepare("INSERT INTO public.partytype (description) VALUES (:description) RETURNING id");
+        $stmt = $pdo->prepare("INSERT INTO public.party_type (description) VALUES (:description) RETURNING id");
         $stmt->execute(['description' => $data['description']]);
         return $stmt->fetchColumn(); // คืนค่า ID ที่เพิ่งสร้าง
     }
@@ -58,7 +58,7 @@ class Partytype
     public static function update($id, $data)
     {
         $pdo = self::getConnection();
-        $stmt = $pdo->prepare("UPDATE public.partytype SET description = :description WHERE id = :id");
+        $stmt = $pdo->prepare("UPDATE public.party_type SET description = :description WHERE id = :id");
         $stmt->execute([
             'id' => $id,
             'description' => $data['description']
@@ -70,7 +70,7 @@ class Partytype
     public static function delete($id)
     {
         $pdo = self::getConnection();
-        $stmt = $pdo->prepare("DELETE FROM public.partytype WHERE id = :id");
+        $stmt = $pdo->prepare("DELETE FROM public.party_type WHERE id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->rowCount(); // คืนค่าจำนวนแถวที่ลบ
     }
