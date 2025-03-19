@@ -17,6 +17,7 @@ use App\Controllers\PartytypeController;
 use App\Controllers\partyclassificationController;
 use App\Controllers\LegalorganizationController;
 use App\Controllers\Informal_organizationController;
+use App\Controllers\EthnicityController;
 
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -136,6 +137,12 @@ $app->get('/v1/informalorganization/{id}', [Informal_organizationController::cla
 $app->post('/v1/informalorganization', [Informal_organizationController::class, 'create']);
 $app->put('/v1/informalorganization/{id}', [Informal_organizationController::class, 'update']);
 $app->delete('/v1/informalorganization/{id}', [Informal_organizationController::class, 'delete']);
+
+$app->get('/v1/ethnicity', [EthnicityController::class, 'list']);
+$app->get('/v1/ethnicity/{id}', [EthnicityController::class, 'get']);
+$app->post('/v1/ethnicity', [EthnicityController::class, 'create']);
+$app->put('/v1/ethnicity/{id}', [EthnicityController::class, 'update']);
+$app->delete('/v1/ethnicity/{id}', [EthnicityController::class, 'delete']);
 
 // // Routes สำหรับ Product
 // $app->get('/products', [ProductController::class, 'list']);
