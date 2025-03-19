@@ -15,6 +15,7 @@ use App\Controllers\PersonController;
 use App\Controllers\PartytypeController;
 use App\Controllers\partyclassificationController;
 use App\Controllers\LegalorganizationController;
+use App\Controllers\PhysicalcharacteristicController;
 
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -122,6 +123,12 @@ $app->get('/v1/legalorganization/{id}', [LegalorganizationController::class, 'ge
 $app->post('/v1/legalorganization', [LegalorganizationController::class, 'create']);
 $app->put('/v1/legalorganization/{id}', [LegalorganizationController::class, 'update']);
 $app->delete('/v1/legalorganization/{id}', [LegalorganizationController::class, 'delete']);
+
+$app->get('/v1/physicalcharacteristic', [PhysicalcharacteristicController::class, 'list']);
+$app->get('/v1/physicalcharacteristic/{id}', [PhysicalcharacteristicController::class, 'get']);
+$app->post('/v1/physicalcharacteristic', [PhysicalcharacteristicController::class, 'create']);
+$app->put('/v1/physicalcharacteristic/{id}', [PhysicalcharacteristicController::class, 'update']);
+$app->delete('/v1/physicalcharacteristic/{id}', [PhysicalcharacteristicController::class, 'delete']);
 
 // // Routes สำหรับ Product
 // $app->get('/products', [ProductController::class, 'list']);
