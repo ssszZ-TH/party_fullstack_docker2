@@ -6,6 +6,7 @@ use App\Controllers\UserController;
 use App\Controllers\MaritalstatustypeController;
 use App\Controllers\PersonnametypeController;
 use App\Controllers\PhysicalcharacteristictypeController;
+use App\Controllers\PhysicalcharacteristicController;
 use App\Controllers\CountryController;
 use App\Controllers\MaritalstatusController;
 use App\Controllers\PersonnameController;
@@ -15,7 +16,7 @@ use App\Controllers\PersonController;
 use App\Controllers\PartytypeController;
 use App\Controllers\partyclassificationController;
 use App\Controllers\LegalorganizationController;
-use App\Controllers\PhysicalcharacteristicController;
+use App\Controllers\Informal_organizationController;
 
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -129,6 +130,12 @@ $app->get('/v1/physicalcharacteristic/{id}', [PhysicalcharacteristicController::
 $app->post('/v1/physicalcharacteristic', [PhysicalcharacteristicController::class, 'create']);
 $app->put('/v1/physicalcharacteristic/{id}', [PhysicalcharacteristicController::class, 'update']);
 $app->delete('/v1/physicalcharacteristic/{id}', [PhysicalcharacteristicController::class, 'delete']);
+
+$app->get('/v1/informalorganization', [Informal_organizationController::class, 'list']);
+$app->get('/v1/informalorganization/{id}', [Informal_organizationController::class, 'get']);
+$app->post('/v1/informalorganization', [Informal_organizationController::class, 'create']);
+$app->put('/v1/informalorganization/{id}', [Informal_organizationController::class, 'update']);
+$app->delete('/v1/informalorganization/{id}', [Informal_organizationController::class, 'delete']);
 
 // // Routes สำหรับ Product
 // $app->get('/products', [ProductController::class, 'list']);
