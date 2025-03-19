@@ -127,6 +127,7 @@ CREATE TABLE physicalcharacteristic (
     id SERIAL PRIMARY KEY,              -- Unique identifier for each characteristic record
     fromdate DATE,                      -- Start date of the characteristic
     thrudate DATE,                      -- End date of the characteristic (NULL if still active)
+    val INT,                      -- value of the characteristic
     person_id INT REFERENCES person(id), -- Foreign key linking to person
     physicalcharacteristictype_id INT REFERENCES physicalcharacteristictype(id) -- Foreign key to characteristic type
 );

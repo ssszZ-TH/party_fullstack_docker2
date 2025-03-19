@@ -13,6 +13,8 @@ use App\Controllers\CitizenshipController;
 use App\Controllers\PassportController;
 use App\Controllers\PersonController;
 use App\Controllers\PartytypeController;
+use App\Controllers\partyclassificationController;
+use App\Controllers\LegalorganizationController;
 
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -108,6 +110,18 @@ $app->get('/v1/partytype/{id}', [PartytypeController::class, 'get']);
 $app->post('/v1/partytype', [PartytypeController::class, 'create']);
 $app->put('/v1/partytype/{id}', [PartytypeController::class, 'update']);
 $app->delete('/v1/partytype/{id}', [PartytypeController::class, 'delete']);
+
+$app->get('/v1/partyclassification', [partyclassificationController::class, 'list']);
+$app->get('/v1/partyclassification/{id}', [partyclassificationController::class, 'get']);
+$app->post('/v1/partyclassification', [partyclassificationController::class, 'create']);
+$app->put('/v1/partyclassification/{id}', [partyclassificationController::class, 'update']);
+$app->delete('/v1/partyclassification/{id}', [partyclassificationController::class, 'delete']);
+
+$app->get('/v1/legalorganization', [LegalorganizationController::class, 'list']);
+$app->get('/v1/legalorganization/{id}', [LegalorganizationController::class, 'get']);
+$app->post('/v1/legalorganization', [LegalorganizationController::class, 'create']);
+$app->put('/v1/legalorganization/{id}', [LegalorganizationController::class, 'update']);
+$app->delete('/v1/legalorganization/{id}', [LegalorganizationController::class, 'delete']);
 
 // // Routes สำหรับ Product
 // $app->get('/products', [ProductController::class, 'list']);
