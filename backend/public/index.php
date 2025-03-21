@@ -21,6 +21,7 @@ use App\Controllers\EthnicityController;
 use App\Controllers\IncomerangeController;
 use App\Controllers\IndustrytypeController;
 use App\Controllers\EmployeecountrangeController;
+use App\Controllers\MinoritytypeController;
 
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -164,6 +165,12 @@ $app->get('/v1/employeecountrange/{id}', [EmployeecountrangeController::class, '
 $app->post('/v1/employeecountrange', [EmployeecountrangeController::class, 'create']);
 $app->put('/v1/employeecountrange/{id}', [EmployeecountrangeController::class, 'update']);
 $app->delete('/v1/employeecountrange/{id}', [EmployeecountrangeController::class, 'delete']);
+
+$app->get('/v1/minoritytype', [MinoritytypeController::class, 'list']);
+$app->get('/v1/minoritytype/{id}', [MinoritytypeController::class, 'get']);
+$app->post('/v1/minoritytype', [MinoritytypeController::class, 'create']);
+$app->put('/v1/minoritytype/{id}', [MinoritytypeController::class, 'update']);
+$app->delete('/v1/minoritytype/{id}', [MinoritytypeController::class, 'delete']);
 
 // // Routes สำหรับ Product
 // $app->get('/products', [ProductController::class, 'list']);
