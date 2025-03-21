@@ -18,6 +18,7 @@ use App\Controllers\partyclassificationController;
 use App\Controllers\LegalorganizationController;
 use App\Controllers\Informal_organizationController;
 use App\Controllers\EthnicityController;
+use App\Controllers\IncomerangeController;
 
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -143,6 +144,12 @@ $app->get('/v1/ethnicity/{id}', [EthnicityController::class, 'get']);
 $app->post('/v1/ethnicity', [EthnicityController::class, 'create']);
 $app->put('/v1/ethnicity/{id}', [EthnicityController::class, 'update']);
 $app->delete('/v1/ethnicity/{id}', [EthnicityController::class, 'delete']);
+
+$app->get('/v1/incomerange', [IncomerangeController::class, 'list']);
+$app->get('/v1/incomerange/{id}', [IncomerangeController::class, 'get']);
+$app->post('/v1/incomerange', [IncomerangeController::class, 'create']);
+$app->put('/v1/incomerange/{id}', [IncomerangeController::class, 'update']);
+$app->delete('/v1/incomerange/{id}', [IncomerangeController::class, 'delete']);
 
 // // Routes สำหรับ Product
 // $app->get('/products', [ProductController::class, 'list']);
