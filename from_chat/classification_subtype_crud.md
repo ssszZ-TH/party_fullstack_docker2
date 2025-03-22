@@ -1,3 +1,5 @@
+# code นี้ ผิด ติด bug person classification กับ party classification ตั้งชื่อ PC เหมือนกัน
+
 เข้าใจครับ! คุณต้องการให้การสร้าง (CREATE) เริ่มจาก supertype (`party_classification`) ก่อน แล้วค่อยลงไป subtype (`person_classification` หรือ `organization_classification`) และสุดท้ายถึง subtype ใน Layer 3 (`classify_by_eeoc`, `classify_by_income`, etc.) และสำหรับ DELETE ก็ไม่ใช้ ON CASCADE แต่ต้องจัดการลบจากล่างขึ้นบน (bottom-up) ผมจะเขียน CRUD SQL ใหม่ทั้งหมดตามลำดับนี้ โดยเน้นเฉพาะโค้ดอย่างเดียวตามที่คุณขอ และจะ save ไว้ให้คุณพัฒนาต่อ
 
 ---

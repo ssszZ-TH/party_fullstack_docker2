@@ -22,6 +22,7 @@ use App\Controllers\IncomerangeController;
 use App\Controllers\IndustrytypeController;
 use App\Controllers\EmployeecountrangeController;
 use App\Controllers\MinoritytypeController;
+use App\Controllers\Classify_by_eeocController;
 
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -172,6 +173,12 @@ $app->post('/v1/minoritytype', [MinoritytypeController::class, 'create']);
 $app->put('/v1/minoritytype/{id}', [MinoritytypeController::class, 'update']);
 $app->delete('/v1/minoritytype/{id}', [MinoritytypeController::class, 'delete']);
 
+$app->get('/v1/classifybyeeoc', [Classify_by_eeocController::class, 'list']);
+$app->get('/v1/classifybyeeoc/{id}', [Classify_by_eeocController::class, 'get']);
+$app->post('/v1/classifybyeeoc', [Classify_by_eeocController::class, 'create']);
+$app->put('/v1/classifybyeeoc/{id}', [Classify_by_eeocController::class, 'update']);
+$app->delete('/v1/classifybyeeoc/{id}', [Classify_by_eeocController::class, 'delete']);
+
 // // Routes สำหรับ Product
 // $app->get('/products', [ProductController::class, 'list']);
 // $app->get('/products/{id}', [ProductController::class, 'get']);
@@ -179,6 +186,6 @@ $app->delete('/v1/minoritytype/{id}', [MinoritytypeController::class, 'delete'])
 // $app->put('/products/{id}', [ProductController::class, 'update']);
 // $app->delete('/products/{id}', [ProductController::class, 'delete']);
 
-// เพิ่ม routes อีก 8 ตัวตามลักษณะนี้
+// เพิ่ม routes อีก 5 ตัวตามลักษณะนี้
 
 $app->run();
