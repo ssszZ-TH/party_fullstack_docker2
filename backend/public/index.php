@@ -26,6 +26,7 @@ use App\Controllers\Classify_by_eeocController;
 use App\Controllers\Classify_by_incomeController;
 use App\Controllers\Classify_by_industryController;
 use App\Controllers\Classify_by_sizeController;
+use App\Controllers\Classify_by_minorityController;
 
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -199,6 +200,12 @@ $app->get('/v1/classifybysize/{id}', [Classify_by_sizeController::class, 'get'])
 $app->post('/v1/classifybysize', [Classify_by_sizeController::class, 'create']);
 $app->put('/v1/classifybysize/{id}', [Classify_by_sizeController::class, 'update']);
 $app->delete('/v1/classifybysize/{id}', [Classify_by_sizeController::class, 'delete']);
+
+$app->get('/v1/classifybyminority', [Classify_by_minorityController::class, 'list']);
+$app->get('/v1/classifybyminority/{id}', [Classify_by_minorityController::class, 'get']);
+$app->post('/v1/classifybyminority', [Classify_by_minorityController::class, 'create']);
+$app->put('/v1/classifybyminority/{id}', [Classify_by_minorityController::class, 'update']);
+$app->delete('/v1/classifybyminority/{id}', [Classify_by_minorityController::class, 'delete']);
 
 // // Routes สำหรับ Product
 // $app->get('/products', [ProductController::class, 'list']);
