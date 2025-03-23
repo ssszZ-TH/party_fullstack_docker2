@@ -23,6 +23,7 @@ use App\Controllers\IndustrytypeController;
 use App\Controllers\EmployeecountrangeController;
 use App\Controllers\MinoritytypeController;
 use App\Controllers\Classify_by_eeocController;
+use App\Controllers\Classify_by_incomeController;
 
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -178,6 +179,12 @@ $app->get('/v1/classifybyeeoc/{id}', [Classify_by_eeocController::class, 'get'])
 $app->post('/v1/classifybyeeoc', [Classify_by_eeocController::class, 'create']);
 $app->put('/v1/classifybyeeoc/{id}', [Classify_by_eeocController::class, 'update']);
 $app->delete('/v1/classifybyeeoc/{id}', [Classify_by_eeocController::class, 'delete']);
+
+$app->get('/v1/classifybyincome', [Classify_by_incomeController::class, 'list']);
+$app->get('/v1/classifybyincome/{id}', [Classify_by_incomeController::class, 'get']);
+$app->post('/v1/classifybyincome', [Classify_by_incomeController::class, 'create']);
+$app->put('/v1/classifybyincome/{id}', [Classify_by_incomeController::class, 'update']);
+$app->delete('/v1/classifybyincome/{id}', [Classify_by_incomeController::class, 'delete']);
 
 // // Routes สำหรับ Product
 // $app->get('/products', [ProductController::class, 'list']);
