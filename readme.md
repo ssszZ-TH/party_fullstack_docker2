@@ -46,3 +46,13 @@ docker compose up -d --build
 ![nginx log](./doc_img/Screenshot%202025-03-15%20165551.png)
 
 ![benchmark result](./doc_img/Screenshot%202025-03-15%20165653.png)
+
+# want to test backend
+
+![import postman file](./doc_img/Screenshot2025-03-26100832.png)
+
+open postman import box
+
+![import postman file](./doc_img/Screenshot2025-03-26101231.png)
+
+drag this file to postman import box
