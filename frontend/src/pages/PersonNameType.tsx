@@ -147,7 +147,7 @@ export default function PersonNameType() {
   };
   return (
     <>
-      <AppBarCustom title="Marital Status Type สถานะภาพสมรส"/>
+      <AppBarCustom title="Personname type ประเภทของชื่อ"/>
       {loading ? (
         <Loading /> // แสดง loading component ถ้ากำลังโหลด
       ) : (
