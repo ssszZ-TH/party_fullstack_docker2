@@ -18,13 +18,13 @@ import {
 const services = [
   { name: "Users", path: "/users" },
   { name: "Marital Status Type", path: "/v1/maritalstatustype" },
+  { name: "Marital Status", path: "/v1/maritalstatus" },
   { name: "Person Name Type", path: "/v1/personnametype" },
   {
     name: "Physical Characteristic Type",
     path: "/v1/physicalcharacteristictype",
   },
   { name: "Country", path: "/v1/country" },
-  { name: "Marital Status", path: "/v1/maritalstatus" },
   { name: "Person Name", path: "/v1/personname" },
   { name: "Citizenship", path: "/v1/citizenship" },
   { name: "Passport", path: "/v1/passport" },
@@ -111,6 +111,8 @@ export default function Home() {
             ))}
           </Grid>
         </Container>
+        <img src="/public/party_model.png" alt="diagram" width={"100%"}/>
+
       </Box>
     </>
   );

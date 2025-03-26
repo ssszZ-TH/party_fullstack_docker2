@@ -1,23 +1,22 @@
-import axios from 'axios'
-import React from 'react'
-
-import { useEffect } from 'react'
+import { useEffect } from "react";
+import {
+  create,
+  deleteById,
+  get,
+  list,
+  update,
+} from "../services/maritalstatustype";
 
 function Users() {
-
-
   useEffect(() => {
-    axios.get("http://localhost:8080/v1/person")
-      .then((response) => console.log(response.data))
-      .catch((error) => console.error("Error:", error));
+    list().then(data => console.log(data));
   }, []);
 
   return (
     <>
-    <div>Users</div>
-    
+      <div>Users</div>
     </>
-  )
+  );
 }
 
-export default Users
+export default Users;

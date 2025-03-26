@@ -33,16 +33,28 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $app = AppFactory::create();
 
-// Middleware สำหรับจัดการ CORS
-// Add CORS headers to allow all origins (*) and all methods
+// Middleware สำหรับจัดการ CORS (ทั้ง response ปกติและ preflight OPTIONS)
 $app->add(function (Request $request, $handler): Response {
     $response = $handler->handle($request);
 
-    // ตั้งค่า CORS headers
+    // ตั้งค่า CORS headers สำหรับทุก response
     return $response
-        ->withHeader('Access-Control-Allow-Origin', '*') // อนุญาตทุก origin
-        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS') // อนุญาตทุก method
-        ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // อนุญาต header ที่ frontend อาจส่งมา
+        ->withHeader('Access-Control-Allow-Origin', '*')
+        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+        ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+});
+
+// Middleware เฉพาะสำหรับจัดการ OPTIONS request (preflight)
+$app->add(function (Request $request, $handler): Response {
+    if ($request->getMethod() === 'OPTIONS') {
+        $response = new \Slim\Psr7\Response();
+        return $response
+            ->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+            ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+            ->withStatus(200); // คืน status 200 เพื่อบอกว่า preflight ผ่าน
+    }
+    return $handler->handle($request);
 });
 
 // ทำ body parser ใช้เอง เพื่อความสดวก
