@@ -33,6 +33,18 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $app = AppFactory::create();
 
+// Middleware สำหรับจัดการ CORS
+// Add CORS headers to allow all origins (*) and all methods
+$app->add(function (Request $request, $handler): Response {
+    $response = $handler->handle($request);
+
+    // ตั้งค่า CORS headers
+    return $response
+        ->withHeader('Access-Control-Allow-Origin', '*') // อนุญาตทุก origin
+        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS') // อนุญาตทุก method
+        ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // อนุญาต header ที่ frontend อาจส่งมา
+});
+
 // ทำ body parser ใช้เอง เพื่อความสดวก
 $app->add(function (Request $request, $handler) {
     $contentType = $request->getHeaderLine('Content-Type');
