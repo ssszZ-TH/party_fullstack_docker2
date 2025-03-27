@@ -13,7 +13,7 @@ import {
   deleteById,
 } from "../services/ethnicity";
 
-export default function PhysicalCharacteristictype() {
+export default function Ethnicity() {
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 50 },
     {
