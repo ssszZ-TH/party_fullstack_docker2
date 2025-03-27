@@ -6,7 +6,7 @@ interface DataTableProps {
   rows: any[]; // ประเภทของ rows (สามารถกำหนดประเภทให้ชัดเจนได้)
   getRowId?: (row: any) => string | number; // เพิ่ม getRowId ที่นี่
 }
-const paginationModel = { page: 0, pageSize: 5 };
+const paginationModel = { page: 0, pageSize: 10 };
 
 export default function DataTable({ columns, rows, getRowId }: DataTableProps) {
   return (
