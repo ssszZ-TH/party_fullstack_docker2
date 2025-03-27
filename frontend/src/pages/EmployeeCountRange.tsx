@@ -147,7 +147,7 @@ export default function Employeecountrange() {
   };
   return (
     <>
-      <AppBarCustom title="physical characteristic type ประเภทของลักษณะร่างกาย"/>
+      <AppBarCustom title="employee count range จำนวนพนักงานเเบบรูปเเบบช่วง"/>
       {loading ? (
         <Loading /> // แสดง loading component ถ้ากำลังโหลด
       ) : (

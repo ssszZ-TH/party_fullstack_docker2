@@ -147,7 +147,7 @@ export default function Incomerange() {
   };
   return (
     <>
-      <AppBarCustom title="physical characteristic type ประเภทของลักษณะร่างกาย"/>
+      <AppBarCustom title="income range รายได้เเบบช่วง"/>
       {loading ? (
         <Loading /> // แสดง loading component ถ้ากำลังโหลด
       ) : (

@@ -147,7 +147,7 @@ export default function Partytype() {
   };
   return (
     <>
-      <AppBarCustom title="physical characteristic type ประเภทของลักษณะร่างกาย"/>
+      <AppBarCustom title="party type รูปเเบบของความร่วมมือ"/>
       {loading ? (
         <Loading /> // แสดง loading component ถ้ากำลังโหลด
       ) : (

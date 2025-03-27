@@ -158,7 +158,7 @@ export default function PhysicalCharacteristictype() {
   };
   return (
     <>
-      <AppBarCustom title="physical characteristic type ประเภทของลักษณะร่างกาย"/>
+      <AppBarCustom title="ethnicity เชื้อชาติ"/>
       {loading ? (
         <Loading /> // แสดง loading component ถ้ากำลังโหลด
       ) : (
