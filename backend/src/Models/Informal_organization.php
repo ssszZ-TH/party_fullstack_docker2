@@ -33,12 +33,13 @@ class Informal_organization
     {
         $pdo = self::getConnection();
         $sql = "SELECT 
-            p.id AS party_id,
+            p.id AS id,
             o.name_en,
             o.name_th
             FROM public.informal_organization io
             JOIN public.organization o ON io.id = o.id
-            JOIN public.party p ON o.id = p.id";
+            JOIN public.party p ON o.id = p.id
+            order by id asc;";
         $stmt = $pdo->query($sql);
         return $stmt->fetchAll();
     }
@@ -48,7 +49,7 @@ class Informal_organization
     {
         $pdo = self::getConnection();
         $sql = "SELECT 
-            p.id AS party_id,
+            p.id AS id,
             o.name_en,
             o.name_th
             FROM public.informal_organization io

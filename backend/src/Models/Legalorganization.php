@@ -33,14 +33,14 @@ class Legalorganization
     {
         $pdo = self::getConnection();
         $sql = "SELECT 
-            p.id AS party_id,
+            p.id AS id,
             o.name_en,
             o.name_th,
             lo.federal_tax_id_number
             FROM public.legal_organization lo
             JOIN public.organization o ON lo.id = o.id
             JOIN public.party p ON o.id = p.id
-            order by party_id asc;";
+            order by id asc;";
         $stmt = $pdo->query($sql);
         return $stmt->fetchAll();
     }

@@ -11,7 +11,7 @@ import {
   list,
   update,
   deleteById,
-} from "../services/ethnicity";
+} from "../services/informalorganization";
 
 export default function InformalOrganization() {
   const columns: GridColDef[] = [
