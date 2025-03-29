@@ -158,7 +158,7 @@ export default function InformalOrganization() {
   };
   return (
     <>
-      <AppBarCustom title="ethnicity เชื้อชาติ"/>
+      <AppBarCustom title="Informal Organization องค์กรที่ไม่จดทะเบียน"/>
       {loading ? (
         <Loading /> // แสดง loading component ถ้ากำลังโหลด
       ) : (
