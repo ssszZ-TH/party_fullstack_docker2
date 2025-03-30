@@ -99,7 +99,7 @@ export default function Modal_citizenship({
           margin="normal"
         />
         <FormControl fullWidth margin="normal">
-          <InputLabel id="state-select-label">State</InputLabel>
+          <InputLabel id="state-select-label">Person</InputLabel>
           <Select
             labelId="state-select-label"
             name="person_id"
@@ -114,7 +114,7 @@ export default function Modal_citizenship({
           </Select>
         </FormControl>
         <FormControl fullWidth margin="normal">
-          <InputLabel id="state-select-label">State</InputLabel>
+          <InputLabel id="state-select-label">Country</InputLabel>
           <Select
             labelId="state-select-label"
             name="country_id"

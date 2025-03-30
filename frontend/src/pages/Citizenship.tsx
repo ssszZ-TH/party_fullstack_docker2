@@ -29,14 +29,17 @@ export default function Citizenship() {
       width: 100,
     },
     {
-      field: "person",
-      headerName: "Person",
-      width: 300,
-      renderCell: (params) => {
-        const person = personDD.find((p) => p.id === params.row.person_id);
+      field: "person", // Column name in the table
+      headerName: "Person Comment", // Title shown at the top of the column
+      width: 300, // How wide the column is (in pixels)
+      renderCell: (params) => { // Function to show custom content in the cell
+        const obj = personDD.find((item) => item.id === params.row.person_id); // Find person data by matching person_id
         return (
-          <Typography variant="body2" color={person ? "text.primary" : "text.secondary"}>
-            {person ? person.text : "N/A"}
+          <Typography 
+            variant="body2" // Small text style
+            color={obj ? "text.primary" : "text.secondary"} // Black if found, gray if not
+          >
+            {obj ? obj.text : "N/A"}
           </Typography>
         );
       },
