@@ -43,9 +43,15 @@ docker compose up -d --build
 
 เปลี่ยนจาก laravel ลดลงเหลือเเค่ slim framework นีคือผลการ benchmark crud service เเบบ auto ด้วย program postman 
 
-![nginx log](./doc_img/Screenshot%202025-03-15%20165551.png)
+
+![benchmark result](./mockup/benchmark_laravel.png)
+ผลการทดสอบ laravel proj เก่า
 
 ![benchmark result](./doc_img/Screenshot%202025-03-15%20165653.png)
+ผลการทดสอบหลังเปลี่ยนเป็น slim framework
+
+![nginx log](./doc_img/Screenshot%202025-03-15%20165551.png)
+log ใน nginx
 
 # want to test backend
 

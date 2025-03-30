@@ -27,7 +27,7 @@ interface typeofModalProps {
   openModalFor: string;
 }
 
-export default function MaritalStatusTypeModal({
+export default function Modal_iso_name_enth({
   open,
   onClose,
   initialDetail,
