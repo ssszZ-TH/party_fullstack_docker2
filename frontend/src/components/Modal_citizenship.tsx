@@ -1,5 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Box, Button, TextField, Typography, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import {
+  Modal,
+  Box,
+  Button,
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateField } from "@mui/x-date-pickers/DateField";
+import dayjs from "dayjs";
 
 interface typeOfFormData {
   id: number | null;
@@ -20,7 +33,7 @@ const style = {
   p: 4,
 };
 
-interface typeOfDD{
+interface typeOfDD {
   id: number;
   text: string;
 }
@@ -54,11 +67,15 @@ export default function Modal_citizenship({
 
   // ใช้ useEffect เพื่ออัปเดต formData เมื่อ initialDetail เปลี่ยน
   useEffect(() => {
-    // ตรวจสอบว่า initialDetail มีข้อมูลที่จะใช้
     console.log("form initial detail = ", initialDetail);
     setFormData(initialDetail);
   }, [initialDetail]);
 
+  const handleDateChange = (name: string, value: dayjs.Dayjs | null) => {
+    // แปลงค่าเป็นรูปแบบ YYYY-MM-DD หรือค่าว่างถ้าไม่มีค่า
+    const dateValue = value ? value.format("YYYY-MM-DD") : "";
+    setFormData({ ...formData, [name]: dateValue });
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>
@@ -82,28 +99,37 @@ export default function Modal_citizenship({
         <Typography variant="h6" component="h2">
           Details
         </Typography>
-        <TextField
-          label="From Date in format YYYY-MM-DD"
-          name="fromdate"
-          value={formData.fromdate}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-        />
-        <TextField
-          label="Thru Date in format YYYY-MM-DD"
-          name="thrudate"
-          value={formData.thrudate}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-        />
+
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          {/* From Date Field */}
+          <DateField
+            label="From Date"
+            value={formData.fromdate ? dayjs(formData.fromdate) : null}
+            onChange={(newValue) => handleDateChange("fromdate", newValue)}
+            format="YYYY-MM-DD"
+            fullWidth
+            margin="normal"
+            sx={{ mb: 2 }}
+          />
+
+          {/* Thru Date Field */}
+          <DateField
+            label="Thru Date"
+            value={formData.thrudate ? dayjs(formData.thrudate) : null}
+            onChange={(newValue) => handleDateChange("thrudate", newValue)}
+            format="YYYY-MM-DD"
+            fullWidth
+            margin="normal"
+            sx={{ mb: 2 }}
+          />
+        </LocalizationProvider>
+
         <FormControl fullWidth margin="normal">
-          <InputLabel id="state-select-label">Person</InputLabel>
+          <InputLabel id="person-select-label">Person</InputLabel>
           <Select
-            labelId="state-select-label"
+            labelId="person-select-label"
             name="person_id"
-            value={formData.person_id || ""}
+            value={formData.person_id ?? ""}
             onChange={handleChange}
           >
             {personDD.map((item) => (
@@ -113,12 +139,13 @@ export default function Modal_citizenship({
             ))}
           </Select>
         </FormControl>
+
         <FormControl fullWidth margin="normal">
-          <InputLabel id="state-select-label">Country</InputLabel>
+          <InputLabel id="country-select-label">Country</InputLabel>
           <Select
-            labelId="state-select-label"
+            labelId="country-select-label"
             name="country_id"
-            value={formData.country_id || ""}
+            value={formData.country_id ?? ""}
             onChange={handleChange}
           >
             {countryDD.map((item) => (
@@ -136,4 +163,3 @@ export default function Modal_citizenship({
     </Modal>
   );
 }
-
