@@ -33,6 +33,8 @@ export async function get({ id }: { id: number }) {
 }
 
 export async function create(data: any) {
+  // prevent empty string date error
+  data.thrudate = data.thrudate?.trim() || null;
   try {
     const res = await axios.post(BASE_URL, data, {
       headers: { "Content-Type": "application/json" }, // เพิ่ม header เพื่อความชัดเจน
@@ -45,6 +47,8 @@ export async function create(data: any) {
 }
 
 export async function update(data: any) {
+  // prevent empty string date error
+  data.thrudate = data.thrudate?.trim() || null;
   try {
     const res = await axios.put(`${BASE_URL}/${data.id}`, data, {
       headers: { "Content-Type": "application/json" },
