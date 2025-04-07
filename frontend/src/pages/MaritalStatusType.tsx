@@ -147,7 +147,7 @@ function MaritalStatusType() {
   };
   return (
     <>
-      <AppBarCustom title="Marital Status Type สถานะภาพสมรส"/>
+      <AppBarCustom title="Marital Status Type ประเภทสถานะภาพสมรส"/>
       {loading ? (
         <Loading /> // แสดง loading component ถ้ากำลังโหลด
       ) : (
