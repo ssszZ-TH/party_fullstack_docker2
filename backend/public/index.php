@@ -147,11 +147,15 @@ $app->post('/v1/partytype', [PartytypeController::class, 'create']);
 $app->put('/v1/partytype/{id}', [PartytypeController::class, 'update']);
 $app->delete('/v1/partytype/{id}', [PartytypeController::class, 'delete']);
 
-$app->get('/v1/partyclassification', [partyclassificationController::class, 'list']);
-$app->get('/v1/partyclassification/{id}', [partyclassificationController::class, 'get']);
-$app->post('/v1/partyclassification', [partyclassificationController::class, 'create']);
-$app->put('/v1/partyclassification/{id}', [partyclassificationController::class, 'update']);
-$app->delete('/v1/partyclassification/{id}', [partyclassificationController::class, 'delete']);
+// party classification เป็นเเค่ suppertype ไว้เก็ย attribute ที่ซ้ำๆ กันของ subtype เฉยๆ ต้อง crud โดยตรงไม่ได้
+// ถ้าจะ manage ต้อง manage ผ่าน subtype เท่านั้น
+// ตัวที่เป็น subtype คือ
+// classify by (eeoc income industry size minority)
+// $app->get('/v1/partyclassification', [partyclassificationController::class, 'list']);
+// $app->get('/v1/partyclassification/{id}', [partyclassificationController::class, 'get']);
+// $app->post('/v1/partyclassification', [partyclassificationController::class, 'create']);
+// $app->put('/v1/partyclassification/{id}', [partyclassificationController::class, 'update']);
+// $app->delete('/v1/partyclassification/{id}', [partyclassificationController::class, 'delete']);
 
 $app->get('/v1/legalorganization', [LegalorganizationController::class, 'list']);
 $app->get('/v1/legalorganization/{id}', [LegalorganizationController::class, 'get']);
