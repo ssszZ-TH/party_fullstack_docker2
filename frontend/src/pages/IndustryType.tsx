@@ -12,6 +12,9 @@ import {
   update,
   deleteById,
 } from "../services/industrytype"; // เเก้ service ด้วย
+import UpdateButton from "../components/buttons/UpdateButton";
+import DeleteButton from "../components/buttons/DeleteButton";
+import AddButton from "../components/buttons/AddButton";
 
 export default function IndustryType() {
   const columns: GridColDef[] = [
@@ -31,13 +34,9 @@ export default function IndustryType() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="primary"
+        <UpdateButton
           onClick={() => handleUpdateButton(params.row)} // เรียกใช้ฟังก์ชัน handleEdit เมื่อคลิก
-        >
-          Update
-        </Button>
+        />
       ),
     },
     {
@@ -45,13 +44,9 @@ export default function IndustryType() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="error"
+        <DeleteButton
           onClick={() => handleDeleteButton(params.row.id)} // เรียกใช้ฟังก์ชัน handleEdit เมื่อคลิก
-        >
-          Delete
-        </Button>
+        />
       ),
     },
   ];
@@ -69,7 +64,7 @@ export default function IndustryType() {
   const [openModalFor, setOpenModalFor] = useState("");
 
   interface typeofTableRow {
-    id: number|null;
+    id: number | null;
     naics_code: string;
     description: string;
   }
@@ -85,7 +80,7 @@ export default function IndustryType() {
   const handleDeleteButton = async (id: number) => {
     console.log("delete button receive value = ", id);
     setLoading(true);
-    await deleteById({id});
+    await deleteById({ id });
     await fetchDataTable();
     setLoading(false);
   };
@@ -117,7 +112,6 @@ export default function IndustryType() {
     });
     setOpenModalFor("");
   };
-
 
   const handleSubmit = async (payload: typeofTableRow) => {
     // เเสดง loading
@@ -153,7 +147,7 @@ export default function IndustryType() {
   };
   return (
     <>
-      <AppBarCustom title="Industry Type ประเภทอุตสาหกรรม"/>
+      <AppBarCustom title="Industry Type ประเภทอุตสาหกรรม" />
       {loading ? (
         <Loading /> // แสดง loading component ถ้ากำลังโหลด
       ) : (
@@ -163,9 +157,12 @@ export default function IndustryType() {
           getRowId={(row) => row.id} // ใช้ geo_id เป็น id
         />
       )}
-      <Button variant="contained" color="primary" onClick={()=>{openModal("create")}}>
-        Add
-      </Button>
+      <AddButton
+        onClick={() => {
+          openModal("create");
+        }}
+      />
+
       <Modal
         open={open}
         onClose={closeModal}
@@ -174,5 +171,5 @@ export default function IndustryType() {
         openModalFor={openModalFor}
       />
     </>
-  )
+  );
 }

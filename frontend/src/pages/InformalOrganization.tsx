@@ -12,6 +12,9 @@ import {
   update,
   deleteById,
 } from "../services/informalorganization";
+import UpdateButton from "../components/buttons/UpdateButton";
+import DeleteButton from "../components/buttons/DeleteButton";
+import AddButton from "../components/buttons/AddButton";
 
 export default function InformalOrganization() {
   const columns: GridColDef[] = [
@@ -31,13 +34,11 @@ export default function InformalOrganization() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="primary"
+        <UpdateButton
+          
           onClick={() => handleUpdateButton(params.row)} // เรียกใช้ฟังก์ชัน handleEdit เมื่อคลิก
-        >
-          Update
-        </Button>
+        />
+        
       ),
     },
     {
@@ -45,13 +46,11 @@ export default function InformalOrganization() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="error"
+        <DeleteButton
+          
           onClick={() => handleDeleteButton(params.row.id)} // เรียกใช้ฟังก์ชัน handleEdit เมื่อคลิก
-        >
-          Delete
-        </Button>
+        />
+        
       ),
     },
   ];
@@ -168,9 +167,10 @@ export default function InformalOrganization() {
           getRowId={(row) => row.id} // ใช้ geo_id เป็น id
         />
       )}
-      <Button variant="contained" color="primary" onClick={()=>{openModal("create")}}>
-        Add
-      </Button>
+      <AddButton
+      onClick={()=>{openModal("create")}}
+      />
+      
       <Modal
         open={open}
         onClose={closeModal}

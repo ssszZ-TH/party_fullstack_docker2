@@ -3,7 +3,6 @@ import AppBarCustom from "../components/AppBarCustom";
 import { GridColDef } from "@mui/x-data-grid";
 import DataTable from "../components/DataTable";
 import MaritalStatusTypeModal from "../components/Modal_id_des";
-import { Button } from "@mui/material";
 import Loading from "../components/Loading"; // สมมุติว่ามีคอมโพเนนต์สำหรับแสดงสถานะการโหลด
 import {
   create,
@@ -12,6 +11,11 @@ import {
   update,
   deleteById,
 } from "../services/maritalstatustype";
+
+import Button from "@mui/material/Button";
+import UpdateButton from "../components/buttons/UpdateButton";
+import DeleteButton from "../components/buttons/DeleteButton";
+import AddButton from "../components/buttons/AddButton";
 
 function MaritalStatusType() {
   const columns: GridColDef[] = [
@@ -26,13 +30,9 @@ function MaritalStatusType() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="primary"
+        <UpdateButton
           onClick={() => handleUpdateButton(params.row)} // เรียกใช้ฟังก์ชัน handleEdit เมื่อคลิก
-        >
-          Update
-        </Button>
+        />
       ),
     },
     {
@@ -40,13 +40,9 @@ function MaritalStatusType() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="error"
+        <DeleteButton
           onClick={() => handleDeleteButton(params.row.id)} // เรียกใช้ฟังก์ชัน handleEdit เมื่อคลิก
-        >
-          Delete
-        </Button>
+        />
       ),
     },
   ];
@@ -78,7 +74,7 @@ function MaritalStatusType() {
   const handleDeleteButton = async (id: number) => {
     console.log("delete button receive value = ", id);
     setLoading(true);
-    await deleteById({id});
+    await deleteById({ id });
     await fetchMaritalStatusType();
     setLoading(false);
   };
@@ -147,7 +143,7 @@ function MaritalStatusType() {
   };
   return (
     <>
-      <AppBarCustom title="Marital Status Type ประเภทสถานะภาพสมรส"/>
+      <AppBarCustom title="Marital Status Type ประเภทสถานะภาพสมรส" />
       {loading ? (
         <Loading /> // แสดง loading component ถ้ากำลังโหลด
       ) : (
@@ -157,9 +153,12 @@ function MaritalStatusType() {
           getRowId={(row) => row.id} // ใช้ geo_id เป็น id
         />
       )}
-      <Button variant="contained" color="primary" onClick={()=>{openModal("create")}}>
-        Add
-      </Button>
+      <AddButton
+        onClick={() => {
+          openModal("create");
+        }}
+      />
+
       <MaritalStatusTypeModal
         open={open}
         onClose={closeModal}
@@ -168,7 +167,7 @@ function MaritalStatusType() {
         openModalFor={openModalFor}
       />
     </>
-  )
+  );
 }
 
 export default MaritalStatusType;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Box, Button, TextField, Typography } from "@mui/material";
+import { Modal, Box, TextField, Typography, Stack } from "@mui/material"; // เพิ่ม Stack
+import SaveButton from "../components/buttons/SaveButton";
 
 interface typeOfFormData {
   id: number | null;
@@ -37,9 +38,7 @@ export default function MaritalStatusTypeModal({
     description: "",
   });
 
-  // ใช้ useEffect เพื่ออัปเดต formData เมื่อ initialDetail เปลี่ยน
   useEffect(() => {
-    // ตรวจสอบว่า initialDetail มีข้อมูลที่จะใช้
     console.log("form initial detail = ", initialDetail);
     setFormData(initialDetail);
   }, [initialDetail]);
@@ -75,11 +74,11 @@ export default function MaritalStatusTypeModal({
           margin="normal"
         />
 
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
-          Save
-        </Button>
+        {/* ใช้ Stack เพื่อจัดตำแหน่งปุ่ม */}
+        <Stack direction="row" justifyContent="flex-end" sx={{ mt: 2 }}>
+          <SaveButton onClick={handleSubmit} />
+        </Stack>
       </Box>
     </Modal>
   );
 }
-

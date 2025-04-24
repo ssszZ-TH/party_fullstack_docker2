@@ -9,6 +9,9 @@ import { create, get, list, update, deleteById } from "../services/citizenship";
 
 import { list as listCountry } from "../services/country";
 import { list as listPerson } from "../services/person";
+import UpdateButton from "../components/buttons/UpdateButton";
+import DeleteButton from "../components/buttons/DeleteButton";
+import AddButton from "../components/buttons/AddButton";
 
 export default function Citizenship() {
   const columns: GridColDef[] = [
@@ -32,10 +35,11 @@ export default function Citizenship() {
       field: "person", // Column name in the table
       headerName: "Person Comment", // Title shown at the top of the column
       width: 300, // How wide the column is (in pixels)
-      renderCell: (params) => { // Function to show custom content in the cell
+      renderCell: (params) => {
+        // Function to show custom content in the cell
         const obj = personDD.find((item) => item.id === params.row.person_id); // Find person data by matching person_id
         return (
-          <Typography 
+          <Typography
             variant="body2" // Small text style
             color={obj ? "text.primary" : "text.secondary"} // Black if found, gray if not
           >
@@ -56,25 +60,22 @@ export default function Citizenship() {
       renderCell: (params) => {
         const country = countryDD.find((c) => c.id === params.row.country_id);
         return (
-          <Typography variant="body2" color={country ? "text.primary" : "text.secondary"}>
+          <Typography
+            variant="body2"
+            color={country ? "text.primary" : "text.secondary"}
+          >
             {country ? country.text : "N/A"}
           </Typography>
         );
       },
     },
-    
+
     {
       field: "update",
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => handleUpdateButton(params.row)}
-        >
-          Update
-        </Button>
+        <UpdateButton onClick={() => handleUpdateButton(params.row)} />
       ),
     },
     {
@@ -82,13 +83,7 @@ export default function Citizenship() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="error"
-          onClick={() => handleDeleteButton(params.row.id)}
-        >
-          Delete
-        </Button>
+        <DeleteButton onClick={() => handleDeleteButton(params.row.id)} />
       ),
     },
   ];
@@ -109,15 +104,19 @@ export default function Citizenship() {
     text: string;
   }
 
-  const defaultPersonDD = [{
-    id: 0,
-    text: "",
-  }];
+  const defaultPersonDD = [
+    {
+      id: 0,
+      text: "",
+    },
+  ];
 
-  const defaultCountryDD = [{
-    id: 0,
-    text: "",
-  }];
+  const defaultCountryDD = [
+    {
+      id: 0,
+      text: "",
+    },
+  ];
 
   const [personDD, setPersonDD] = useState<typeOfDD[]>(defaultPersonDD);
   const [countryDD, setCountryDD] = useState<typeOfDD[]>(defaultCountryDD);
@@ -260,15 +259,13 @@ export default function Citizenship() {
           getRowId={(row) => row.id} // ใช้ geo_id เป็น id
         />
       )}
-      <Button
-        variant="contained"
-        color="primary"
+      <AddButton
+        
         onClick={() => {
           openModal("create");
         }}
-      >
-        Add
-      </Button>
+      />
+
       <Modal
         open={open}
         onClose={closeModal}

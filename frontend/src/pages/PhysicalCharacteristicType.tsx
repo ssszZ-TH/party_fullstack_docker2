@@ -12,6 +12,9 @@ import {
   update,
   deleteById,
 } from "../services/physicalcharacteristictype";
+import UpdateButton from "../components/buttons/UpdateButton";
+import DeleteButton from "../components/buttons/DeleteButton";
+import AddButton from "../components/buttons/AddButton";
 
 export default function PhysicalCharacteristictype() {
   const columns: GridColDef[] = [
@@ -26,13 +29,9 @@ export default function PhysicalCharacteristictype() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="primary"
+        <UpdateButton
           onClick={() => handleUpdateButton(params.row)} // เรียกใช้ฟังก์ชัน handleEdit เมื่อคลิก
-        >
-          Update
-        </Button>
+        />
       ),
     },
     {
@@ -40,13 +39,9 @@ export default function PhysicalCharacteristictype() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="error"
+        <DeleteButton
           onClick={() => handleDeleteButton(params.row.id)} // เรียกใช้ฟังก์ชัน handleEdit เมื่อคลิก
-        >
-          Delete
-        </Button>
+        />
       ),
     },
   ];
@@ -78,7 +73,7 @@ export default function PhysicalCharacteristictype() {
   const handleDeleteButton = async (id: number) => {
     console.log("delete button receive value = ", id);
     setLoading(true);
-    await deleteById({id});
+    await deleteById({ id });
     await fetchDataTable();
     setLoading(false);
   };
@@ -147,7 +142,7 @@ export default function PhysicalCharacteristictype() {
   };
   return (
     <>
-      <AppBarCustom title="physical characteristic type ประเภทของลักษณะร่างกาย"/>
+      <AppBarCustom title="physical characteristic type ประเภทของลักษณะร่างกาย" />
       {loading ? (
         <Loading /> // แสดง loading component ถ้ากำลังโหลด
       ) : (
@@ -157,9 +152,13 @@ export default function PhysicalCharacteristictype() {
           getRowId={(row) => row.id} // ใช้ geo_id เป็น id
         />
       )}
-      <Button variant="contained" color="primary" onClick={()=>{openModal("create")}}>
-        Add
-      </Button>
+      <AddButton
+        
+        onClick={() => {
+          openModal("create");
+        }}
+      />
+      
       <Modal
         open={open}
         onClose={closeModal}
@@ -168,5 +167,5 @@ export default function PhysicalCharacteristictype() {
         openModalFor={openModalFor}
       />
     </>
-  )
+  );
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Box, Button, TextField, Typography } from "@mui/material";
+import { Modal, Box, Button, TextField, Typography, Stack } from "@mui/material";
+import SaveButton from "./buttons/SaveButton";
 
 interface typeOfFormData {
   id: number | null;
@@ -85,9 +86,10 @@ export default function Modal_naics_des({
           margin="normal"
         />
 
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
-          Save
-        </Button>
+        {/* ใช้ Stack เพื่อจัดตำแหน่งปุ่ม */}
+        <Stack direction="row" justifyContent="flex-end" sx={{ mt: 2 }}>
+          <SaveButton onClick={handleSubmit} />
+        </Stack>
       </Box>
     </Modal>
   );

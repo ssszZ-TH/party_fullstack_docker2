@@ -5,13 +5,10 @@ import DataTable from "../components/DataTable";
 import Modal from "../components/Modal_id_name_enth";
 import { Button } from "@mui/material";
 import Loading from "../components/Loading"; // สมมุติว่ามีคอมโพเนนต์สำหรับแสดงสถานะการโหลด
-import {
-  create,
-  get,
-  list,
-  update,
-  deleteById,
-} from "../services/ethnicity";
+import { create, get, list, update, deleteById } from "../services/ethnicity";
+import UpdateButton from "../components/buttons/UpdateButton";
+import DeleteButton from "../components/buttons/DeleteButton";
+import AddButton from "../components/buttons/AddButton";
 
 export default function Ethnicity() {
   const columns: GridColDef[] = [
@@ -31,13 +28,9 @@ export default function Ethnicity() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="primary"
+        <UpdateButton
           onClick={() => handleUpdateButton(params.row)} // เรียกใช้ฟังก์ชัน handleEdit เมื่อคลิก
-        >
-          Update
-        </Button>
+        />
       ),
     },
     {
@@ -45,19 +38,15 @@ export default function Ethnicity() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="error"
+        <DeleteButton
           onClick={() => handleDeleteButton(params.row.id)} // เรียกใช้ฟังก์ชัน handleEdit เมื่อคลิก
-        >
-          Delete
-        </Button>
+        />
       ),
     },
   ];
-  
+
   interface typeofTableRow {
-    id: number|null;
+    id: number | null;
     name_en: string;
     name_th: string;
   }
@@ -73,7 +62,6 @@ export default function Ethnicity() {
   // เหตุผลในการเปิด modal มีเปิดเพื่อ อ่าน เปิด แก้ไข เปิดเพื่อสร้างข้อมูลใหม่
   const [openModalFor, setOpenModalFor] = useState("");
 
-
   const handleUpdateButton = async (row: typeofTableRow) => {
     console.log("edit button receive value = ", row);
 
@@ -85,7 +73,7 @@ export default function Ethnicity() {
   const handleDeleteButton = async (id: number) => {
     console.log("delete button receive value = ", id);
     setLoading(true);
-    await deleteById({id});
+    await deleteById({ id });
     await fetchDataTable();
     setLoading(false);
   };
@@ -158,7 +146,7 @@ export default function Ethnicity() {
   };
   return (
     <>
-      <AppBarCustom title="ethnicity เชื้อชาติ"/>
+      <AppBarCustom title="ethnicity เชื้อชาติ" />
       {loading ? (
         <Loading /> // แสดง loading component ถ้ากำลังโหลด
       ) : (
@@ -168,9 +156,11 @@ export default function Ethnicity() {
           getRowId={(row) => row.id} // ใช้ geo_id เป็น id
         />
       )}
-      <Button variant="contained" color="primary" onClick={()=>{openModal("create")}}>
-        Add
-      </Button>
+      <AddButton
+        onClick={() => {
+          openModal("create");
+        }}
+      />
       <Modal
         open={open}
         onClose={closeModal}
@@ -179,5 +169,5 @@ export default function Ethnicity() {
         openModalFor={openModalFor}
       />
     </>
-  )
+  );
 }

@@ -8,11 +8,13 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Stack,
 } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
 import dayjs from "dayjs";
+import SaveButton from "./buttons/SaveButton";
 
 interface typeOfFormData {
   id: number | null;
@@ -156,9 +158,10 @@ export default function Modal_maritalstatus({
           </Select>
         </FormControl>
 
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
-          Save
-        </Button>
+        {/* ใช้ Stack เพื่อจัดตำแหน่งปุ่ม */}
+        <Stack direction="row" justifyContent="flex-end" sx={{ mt: 2 }}>
+          <SaveButton onClick={handleSubmit} />
+        </Stack>
       </Box>
     </Modal>
   );

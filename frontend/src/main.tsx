@@ -3,6 +3,9 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Loading from "./components/Loading";
 
+// global variable theme ของทั้งเว็บ
+import { ThemeProvider } from "./contexts/ThemeContext";
+
 // Lazy load Home page
 // โหลดหน้า Home แบบ Lazy
 const Home = lazy(() => import("./pages/Home"));
@@ -28,8 +31,14 @@ const routes = [
     path: "/v1/maritalstatus",
     component: lazy(() => import("./pages/MaritalStatus")),
   },
-  { path: "/v1/personname", component: lazy(() => import("./pages/PersonName")) },
-  { path: "/v1/citizenship", component: lazy(() => import("./pages/Citizenship")) },
+  {
+    path: "/v1/personname",
+    component: lazy(() => import("./pages/PersonName")),
+  },
+  {
+    path: "/v1/citizenship",
+    component: lazy(() => import("./pages/Citizenship")),
+  },
   { path: "/v1/passport", component: lazy(() => import("./pages/Passport")) },
   { path: "/v1/person", component: lazy(() => import("./pages/Person")) },
   { path: "/v1/partytype", component: lazy(() => import("./pages/PartyType")) },
@@ -90,28 +99,30 @@ const routes = [
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
-      <Suspense fallback={<Loading />}>
-        <Routes>
-          {/* หน้า Home */}
-          {/* Home page */}
-          <Route path="/" element={<Home />} />
+    <ThemeProvider>
+      <BrowserRouter>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            {/* หน้า Home */}
+            {/* Home page */}
+            <Route path="/" element={<Home />} />
 
-          {/* ใช้ map เพื่อสร้าง Route จาก array */}
-          {/* Use map to generate Routes from the array */}
-          {routes.map((route) => (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={<route.component />}
-            />
-          ))}
+            {/* ใช้ map เพื่อสร้าง Route จาก array */}
+            {/* Use map to generate Routes from the array */}
+            {routes.map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={<route.component />}
+              />
+            ))}
 
-          {/* หน้า 404 สำหรับ path ที่ไม่ match */}
-          {/* 404 page for unmatched paths */}
-          <Route path="*" element={<h1>404 Not Found</h1>} />
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
+            {/* หน้า 404 สำหรับ path ที่ไม่ match */}
+            {/* 404 page for unmatched paths */}
+            <Route path="*" element={<h1>404 Not Found</h1>} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    </ThemeProvider>
   </StrictMode>
 );

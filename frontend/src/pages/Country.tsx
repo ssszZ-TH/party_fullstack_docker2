@@ -12,6 +12,9 @@ import {
   update,
   deleteById,
 } from "../services/country"; // เเก้ service ด้วย
+import UpdateButton from "../components/buttons/UpdateButton";
+import DeleteButton from "../components/buttons/DeleteButton";
+import AddButton from "../components/buttons/AddButton";
 
 export default function Country() {
   const columns: GridColDef[] = [
@@ -36,13 +39,10 @@ export default function Country() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="primary"
+        <UpdateButton
+          
           onClick={() => handleUpdateButton(params.row)} // เรียกใช้ฟังก์ชัน handleEdit เมื่อคลิก
-        >
-          Update
-        </Button>
+        />
       ),
     },
     {
@@ -50,13 +50,11 @@ export default function Country() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="error"
+        <DeleteButton
+          
           onClick={() => handleDeleteButton(params.row.id)} // เรียกใช้ฟังก์ชัน handleEdit เมื่อคลิก
-        >
-          Delete
-        </Button>
+        />
+        
       ),
     },
   ];
@@ -172,15 +170,12 @@ export default function Country() {
           getRowId={(row) => row.id} // ใช้ geo_id เป็น id
         />
       )}
-      <Button
-        variant="contained"
-        color="primary"
+      <AddButton
         onClick={() => {
           openModal("create");
         }}
-      >
-        Add
-      </Button>
+      />
+      
       <Modal
         open={open}
         onClose={closeModal}

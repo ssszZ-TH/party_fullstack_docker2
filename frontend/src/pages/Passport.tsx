@@ -8,6 +8,9 @@ import Loading from "../components/Loading";
 import { create, get, list, update, deleteById } from "../services/passport"; // เเก้ service ด้วย
 
 import { list as listCitizenship } from "../services/citizenship";
+import UpdateButton from "../components/buttons/UpdateButton";
+import DeleteButton from "../components/buttons/DeleteButton";
+import AddButton from "../components/buttons/AddButton";
 
 export default function Passport() {
   const columns: GridColDef[] = [
@@ -48,13 +51,7 @@ export default function Passport() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => handleUpdateButton(params.row)}
-        >
-          Update
-        </Button>
+        <UpdateButton onClick={() => handleUpdateButton(params.row)} />
       ),
     },
     {
@@ -62,13 +59,7 @@ export default function Passport() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="error"
-          onClick={() => handleDeleteButton(params.row.id)}
-        >
-          Delete
-        </Button>
+        <DeleteButton onClick={() => handleDeleteButton(params.row.id)} />
       ),
     },
   ];
@@ -222,15 +213,11 @@ export default function Passport() {
           getRowId={(row) => row.id} // ใช้ geo_id เป็น id
         />
       )}
-      <Button
-        variant="contained"
-        color="primary"
+      <AddButton
         onClick={() => {
           openModal("create");
         }}
-      >
-        Add
-      </Button>
+      />
       <Modal
         open={open}
         onClose={closeModal}

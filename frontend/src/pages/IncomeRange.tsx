@@ -5,13 +5,10 @@ import DataTable from "../components/DataTable";
 import Modal from "../components/Modal_id_des";
 import { Button } from "@mui/material";
 import Loading from "../components/Loading"; // สมมุติว่ามีคอมโพเนนต์สำหรับแสดงสถานะการโหลด
-import {
-  create,
-  get,
-  list,
-  update,
-  deleteById,
-} from "../services/incomerange";
+import { create, get, list, update, deleteById } from "../services/incomerange";
+import UpdateButton from "../components/buttons/UpdateButton";
+import DeleteButton from "../components/buttons/DeleteButton";
+import AddButton from "../components/buttons/AddButton";
 
 export default function Incomerange() {
   const columns: GridColDef[] = [
@@ -26,13 +23,9 @@ export default function Incomerange() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="primary"
+        <UpdateButton
           onClick={() => handleUpdateButton(params.row)} // เรียกใช้ฟังก์ชัน handleEdit เมื่อคลิก
-        >
-          Update
-        </Button>
+        />
       ),
     },
     {
@@ -40,13 +33,9 @@ export default function Incomerange() {
       headerName: "",
       width: 100,
       renderCell: (params) => (
-        <Button
-          variant="contained"
-          color="error"
+        <DeleteButton
           onClick={() => handleDeleteButton(params.row.id)} // เรียกใช้ฟังก์ชัน handleEdit เมื่อคลิก
-        >
-          Delete
-        </Button>
+        />
       ),
     },
   ];
@@ -78,7 +67,7 @@ export default function Incomerange() {
   const handleDeleteButton = async (id: number) => {
     console.log("delete button receive value = ", id);
     setLoading(true);
-    await deleteById({id});
+    await deleteById({ id });
     await fetchDataTable();
     setLoading(false);
   };
@@ -147,7 +136,7 @@ export default function Incomerange() {
   };
   return (
     <>
-      <AppBarCustom title="income range รายได้เเบบช่วง"/>
+      <AppBarCustom title="income range รายได้เเบบช่วง" />
       {loading ? (
         <Loading /> // แสดง loading component ถ้ากำลังโหลด
       ) : (
@@ -157,9 +146,12 @@ export default function Incomerange() {
           getRowId={(row) => row.id} // ใช้ geo_id เป็น id
         />
       )}
-      <Button variant="contained" color="primary" onClick={()=>{openModal("create")}}>
-        Add
-      </Button>
+      <AddButton
+        onClick={() => {
+          openModal("create");
+        }}
+      />
+
       <Modal
         open={open}
         onClose={closeModal}
@@ -168,5 +160,5 @@ export default function Incomerange() {
         openModalFor={openModalFor}
       />
     </>
-  )
+  );
 }
