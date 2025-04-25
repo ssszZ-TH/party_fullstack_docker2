@@ -35,21 +35,16 @@ const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
 
 function ResponsiveAppBar({ title }: ResponsiveAppBarProps) {
   const theme = useTheme();
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
   const [titleText] = React.useState<string>(title || "...");
 
   const handleGoHome = () => {
     window.location.href = "/";
   };
 
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+
+
 
   return (
     <StyledAppBar position="static">
@@ -112,32 +107,6 @@ function ResponsiveAppBar({ title }: ResponsiveAppBarProps) {
 
           {/* User Menu (Right) */}
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  alt="User"
-                  src="/static/images/avatar/2.jpg"
-                  sx={{
-                    width: 40,
-                    height: 40,
-                    border: `2px solid ${theme.palette.background.paper}`,
-                    "&:hover": { transform: "scale(1.1)" },
-                  }}
-                />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              anchorEl={anchorElUser}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
           </Box>
         </Toolbar>
       </Container>

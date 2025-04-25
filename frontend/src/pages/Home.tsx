@@ -1,22 +1,29 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import {
-  AppBar,
-  Toolbar,
-  Typography,
+  Box,
   Container,
   Grid,
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-  Box,
-  styled,
-  ThemeProvider,
-  createTheme,
+  Typography,
+  Avatar,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Divider,
 } from "@mui/material";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import {
+  Person as PersonIcon,
+  Settings as SettingsIcon,
+  Info as AboutIcon,
+  Storage as DatabaseIcon,
+  School as TutorialIcon,
+  ArrowForward as ArrowForwardIcon,
+} from "@mui/icons-material";
+import { useTheme } from "@mui/material/styles";
 
+// Services data array
 // อาร์เรย์ของ services
 const services = [
   { name: "Users", path: "/users" },
@@ -46,125 +53,164 @@ const services = [
   { name: "Classify by Minority", path: "/v1/classifybyminority" },
 ];
 
-// สร้าง theme สีน้ำเงิน
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#1976d2", // สีน้ำเงินหลักของ MUI
-      light: "#42a5f5",
-      dark: "#1565c0",
-    },
-    background: {
-      default: "#f5f7fa", // พื้นหลังสีเทาอ่อน
-    },
-  },
-  typography: {
-    fontFamily: "Roboto, sans-serif",
-    h4: { fontWeight: 700 },
-    subtitle1: { color: "#555" },
-  },
-});
-
-// Styled Components
-const StyledAppBar = styled(AppBar)({
-  background: "linear-gradient(90deg, #1976d2 0%, #42a5f5 100%)",
-  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-});
-
-const StyledCard = styled(Card)(({ theme }) => ({
-  height: "100%",
-  display: "flex",
-  flexDirection: "column",
-  transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
-  "&:hover": {
-    transform: "translateY(-8px)",
-    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.15)",
-  },
-}));
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  textTransform: "none",
-  fontWeight: 600,
-  padding: "6px 12px",
-  "&:hover": {
-    backgroundColor: theme.palette.primary.light,
-  },
-}));
+// Navigation items
+const navItems = [
+  { name: "Profile", icon: <PersonIcon />, path: "/profile" },
+  { name: "Settings", icon: <SettingsIcon />, path: "/settings" },
+  { name: "About", icon: <AboutIcon />, path: "/about" },
+  { name: "Database", icon: <DatabaseIcon />, path: "/database" },
+  { name: "Tutorial", icon: <TutorialIcon />, path: "/tutorial" },
+];
 
 export default function Home() {
-  return (
-    <ThemeProvider theme={theme}>
-      <Box sx={{ flexGrow: 1, minHeight: "100vh", backgroundColor: "background.default" }}>
-        {/* AppBar */}
-        <StyledAppBar position="static">
-          <Toolbar>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, fontWeight: 700, letterSpacing: ".1rem" }}
-            >
-              Party Model Dashboard
-            </Typography>
-          </Toolbar>
-        </StyledAppBar>
+  const theme = useTheme();
 
-        {/* Main Content */}
-        <Container maxWidth="lg" sx={{ mt: 6, mb: 6 }}>
-          {/* Header Section */}
+  return (
+    <Box sx={{ display: "flex", minHeight: "100vh" }}>
+      {/* Vertical Navigation Bar */}
+      <Box
+        sx={{
+          width: 240,
+          position: "fixed",
+          height: "100vh",
+          bgcolor: "primary.light",
+          boxShadow: 3,
+          zIndex: 10,
+        }}
+      >
+        {/* Logo */}
+        <Box sx={{ p: 2, textAlign: "center" }}>
+          <img 
+            src="/sphere_wire_frame.svg" 
+            alt="Logo" 
+            style={{ 
+              width: "100%",
+              objectFit: "contain" 
+            }} 
+          />
+        </Box>
+
+        <Divider />
+
+        {/* Navigation Items */}
+        <List>
+          {navItems.map((item) => (
+            <ListItem key={item.name} disablePadding>
+              <ListItemButton 
+                component={RouterLink} 
+                to={item.path}
+                sx={{
+                  "&:hover": {
+                    bgcolor: theme.palette.action.hover,
+                  }
+                }}
+              >
+                <ListItemIcon sx={{ minWidth: 40 }}>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.name} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+
+      {/* Main Content Area */}
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          ml: 30, // Match nav width + spacing
+          position: "relative",
+        }}
+      >
+        {/* Background Graphic */}
+        <img
+          src="/sphere_wire_frame.svg"
+          alt="Background"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            // width: "100%",
+            height: "100vh",
+            objectFit: "cover",
+            zIndex: -1,
+            opacity: 0.2,
+          }}
+        />
+
+        {/* Content Container */}
+        <Container maxWidth="lg" sx={{ py: 4 }}>
+          {/* Page Header */}
           <Box sx={{ textAlign: "center", mb: 4 }}>
-            <Typography
-              variant="h4"
-              gutterBottom
-              sx={{ color: "primary.main", display: "flex", alignItems: "center", justifyContent: "center" }}
-            >
-              <img src="/public/vite.svg" alt="vite" style={{ width: 32, marginRight: 8 }} />
+            <Typography variant="h4" gutterBottom>
               Party Model Admin
-              <img src="/public/favicon.ico" alt="favicon" style={{ width: 32, marginLeft: 8 }} />
             </Typography>
-            <Typography variant="subtitle1" gutterBottom>
-              Explore and manage your services effortlessly
+            <Typography variant="subtitle1" color="text.secondary">
+              Explore and manage your services
             </Typography>
           </Box>
 
           {/* Services Grid */}
-          <Grid container spacing={3}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '12px', // Reduced gap between items
+              justifyContent: 'flex-start',
+            }}
+          >
             {services.map((service) => (
-              <Grid item xs={12} sm={6} md={4} key={service.path}>
-                <StyledCard>
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography variant="h6" component="div" color="primary.main">
-                      {service.name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Manage {service.name.toLowerCase()} data efficiently
-                    </Typography>
-                  </CardContent>
-                  <CardActions sx={{ p: 2 }}>
-                    <StyledButton
-                      component={RouterLink}
-                      to={service.path}
-                      size="small"
-                      color="primary"
-                      endIcon={<ArrowForwardIcon />}
-                    >
-                      Go to {service.name}
-                    </StyledButton>
-                  </CardActions>
-                </StyledCard>
-              </Grid>
+              <Box
+                key={service.path}
+                component={RouterLink}
+                to={service.path}
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  width: '110px', // Compact width
+                  height: '110px', // Compact height
+                  textDecoration: 'none',
+                  transition: 'transform 0.2s',
+                  '&:hover': {
+                    transform: 'scale(1.05)',
+                  },
+                }}
+              >
+                <Avatar
+                  src={`/home_thumbnail/${service.name.toLowerCase().replace(/\s+/g, '-')}/thumbnail.jpg`}
+                  sx={{
+                    width: 80, // Smaller thumbnail
+                    height: 80,
+                    mb: 0.5, // Reduced margin
+                  }}
+                />
+                <Typography
+                  variant="body2"
+                  align="center"
+                  color="text.primary"
+                  sx={{
+                    fontWeight: 500,
+                    fontSize: '0.75rem', // Smaller text
+                    lineHeight: 1.2,
+                    height: '28px', // Fixed height for text
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  {service.name}
+                </Typography>
+              </Box>
             ))}
-          </Grid>
+          </Box>
         </Container>
-
-        {/* Footer Image */}
-        <Box sx={{ px: 2, pb: 4 }}>
-          <img
-            src="/public/party_model.png"
-            alt="Party Model Diagram"
-            style={{ width: "100%", maxWidth: "1200px", display: "block", margin: "0 auto" }}
-          />
-        </Box>
       </Box>
-    </ThemeProvider>
+    </Box>
   );
 }
